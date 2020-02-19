@@ -40,7 +40,6 @@ jobs:
           USEREMAIL: 552191481@qq.com
           REPOSITORY: yeek-outlook-api
           PUSH_BANCHE: gh-pages
-          PUSH_MESSAGE: 'CI built at `date +"%Y-%m-%d %H:%M:%S"`'
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           cd dist
@@ -50,5 +49,5 @@ jobs:
           git remote add origin https://"$ACCESS_TOKEN"@github.com/"$USERNAME"/"$REPOSITORY".git
           git checkout -b "$PUSH_BANCHE"
           git add -A
-          git commit -m ""$PUSH_MESSAGE""
+          git commit -m "CI built at `date +"%Y-%m-%d %H:%M:%S"`"
           git push origin "$PUSH_BANCHE" --force
