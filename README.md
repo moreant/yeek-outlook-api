@@ -1,4 +1,4 @@
-# outlook-api
+# yeek-outlook-api
 
 ## Project setup
 ```

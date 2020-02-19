@@ -44,7 +44,7 @@
                   rows="3"
                 ></v-textarea>
               </v-form>
-              <p>发送自 Outlook-Api</p>
+              <p>发送自 Yeek-Outlook-API</p>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -95,7 +95,7 @@ export default {
                 Content:
                   '<html>' +
                   `<p>${this.form.content}</p>` +
-                  '<p>发送自 <a href="https://www.github.com/moreant/outlook-api">Outlook-API</a></p>' +
+                  '<p>发送自 <a href="https://www.github.com/moreant/yeek-outlook-api">Yeek-Outlook-API</a></p>' +
                   '</html>'
               },
               ToRecipients: [
