@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from 'axios'
 import store from '@/store'
-import { getToken } from '@/utils/token'
+import { getToken, removeToken } from '@/utils/token'
 
 // create an axios instance
 const service = axios.create({
@@ -11,7 +11,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    if (store.state.token) {
+    if (getToken()) {
       config.headers.Authorization = 'Bearer ' + getToken()
     }
     return config
@@ -29,16 +29,20 @@ service.interceptors.response.use(
 
   response => {
     const res = response.data
+    return res
   },
   error => {
     if (error.response) {
       switch (error.response.status) {
         case 401:
           console.log('令牌过期')
+          removeToken()
       }
+      return Promise.reject(error.response.status)
     }
     return Promise.reject(error)
   }
+
 )
 
 export default service

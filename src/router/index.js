@@ -5,23 +5,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    redirect: '/home'
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue')
   },
   {
     path: '/home',
-    name: 'Home',
+    name: 'home',
     component: () => import('@/views/Home.vue')
   },
   {
-    path: '/setting',
-    name: 'Setting',
-    component: () => import('@/views/Setting.vue')
-  },
-  {
-    path: '/call',
-    name: 'Call',
-    component: () => import('@/views/Call.vue')
+    path: '/',
+    redirect: '/home'
   },
   { path: '*', name: '404', component: () => import('@/views/404.vue') }
 ]

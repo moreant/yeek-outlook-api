@@ -7,12 +7,14 @@ import vuetify from './plugins/vuetify'
 // import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import request from './utils/request'
 import './token'
+import request from './utils/request'
 
 Vue.use(VueAxios, request)
 
 Vue.config.productionTip = false
+
+console.log(process.env.NODE_ENV)
 
 new Vue({
   router,

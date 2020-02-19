@@ -6,7 +6,21 @@ router.beforeEach(async (to, from, next) => {
   if ((to.path.indexOf('access_token') === 1)) {
     const accessToken = /(?<=access_token=).+(?=&token_type)/.exec(to.path)
     await store.dispatch('setToken', accessToken[0])
-    next({ path: '/setting' })
+    window.location.replace('/#/home')
   }
-  next()
+
+  if (getToken()) {
+    if (store.state.infos.alias) {
+      next()
+    } else {
+      await store.dispatch('getInfo')
+      next()
+    }
+  } else {
+    if (to.path === '/login') {
+      next()
+    } else {
+      next('/login')
+    }
+  }
 })
