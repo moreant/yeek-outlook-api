@@ -4,21 +4,19 @@
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12" sm="6" xs="12">
           <img alt src="/outlook.png" style="width:128px;height:128px" />
-          <h1>Outlook-API</h1>
+          <h1>Yeek Outlook API</h1>
           <p>
             加入 Office 356 开发者 E5 订阅。获得 Office356 全家桶的使用权，以及
             OneDrive 的 5T 的云空间。仅需要简单的调用 Outlook API 即可续订 90 天
           </p>
         </v-col>
       </v-row>
-
       <v-row justify="center">
         <v-col cols="10" sm="4" xs="12">
           <v-card class="mx-auto" outlined>
             <v-card-title primary-title>登录你的应用</v-card-title>
             <v-card-text>
-              仅支持登录 Microsoft
-              <span class>工作</span>账号
+              <p>仅支持登录 Microsoft<span class>工作</span>账号</p>
               <v-form v-model="valid">
                 <v-text-field
                   :rules="rules"
@@ -48,7 +46,7 @@ export default {
     valid: false,
     rules: [v => !!v || '请填写应用 ID ，或者使用"路人体验"'],
     clientId: '',
-    tempId: '6a0431fc-7814-484d-bbbc-3253a4641231'
+    tempId: ''
   }),
   computed: {
     redirectUri () {

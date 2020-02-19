@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <a class="bar-title" href="/">Outlook API</a>
+      <a class="bar-title" href="/">Yeek Outlook API</a>
       <v-spacer></v-spacer>
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
