@@ -8,6 +8,7 @@ import vuetify from './plugins/vuetify'
 import VueAxios from 'vue-axios'
 
 import './token'
+
 import request from './utils/request'
 
 Vue.use(VueAxios, request)

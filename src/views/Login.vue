@@ -29,13 +29,35 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn :disabled="valid" :href="uri" text>路人体验</v-btn>
+              <v-btn :disabled="valid" @click="dialog = true" text
+                >路人体验</v-btn
+              >
               <v-btn :disabled="!valid" :href="uri" text>登录</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline">请记住路人账号的信息</v-card-title>
+          <v-card-text>
+            <br />
+            <h3>账号：test@yeek.top</h3>
+
+            <h3>密码：123yeek.top</h3>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text @click="dialog = false">算了</v-btn>
+            <v-btn color="green darken-1" text :href="uri"
+              >记住了</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
@@ -46,7 +68,8 @@ export default {
     valid: false,
     rules: [v => !!v || '请填写应用 ID ，或者使用"路人体验"'],
     clientId: '',
-    tempId: ''
+    temp: false,
+    dialog: false
   }),
   computed: {
     redirectUri () {
@@ -55,13 +78,13 @@ export default {
     uri () {
       return (
         'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?' +
-        `client_id=${this.clientId || this.tempId}` +
+        `client_id=${this.clientId || process.env.VUE_APP_CLIENT_ID}` +
         '&response_type=token' +
         `&redirect_uri=${this.redirectUri}login` +
         '&scope=openid+' +
-        'https%3a%2f%2foutlook.office.com%2fuser.read.all+' +
-        'https%3a%2f%2foutlook.office.com%2fMail.ReadWrite+' +
-        'https%3a%2f%2foutlook.office.com%2fmail.send' +
+        'https%3A%2F%2Fgraph.microsoft.com%2Fuser.read +' +
+        'https%3A%2F%2Fgraph.microsoft.com%2FMail.ReadWrite+' +
+        'https%3A%2F%2Fgraph.microsoft.com%2Fmail.send' +
         '&response_mode=fragment' +
         `&nonce=${(Math.random() * 10000) | 0}` +
         'prompt=consent'
@@ -69,10 +92,7 @@ export default {
     }
   },
   methods: {
-    templogin () {
-      this.clientId = ''
-      location.href = this.uri
-    }
+
   }
 }
 </script>

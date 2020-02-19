@@ -9,17 +9,21 @@ export default new Vuex.Store({
   state: {
     token: '',
     infos: {
-      alias: '',
-      emailAddress: ''
+      name: '',
+      emailAddress: '',
+      photo: {}
     }
   },
   mutations: {
     SET_TOKEN (state, token) {
       state.token = token
     },
-    SET_INFO (state, { Alias, EmailAddress }) {
-      state.infos.alias = Alias
+    SET_INFO (state, { displayName, EmailAddress }) {
+      state.infos.name = displayName
       state.infos.emailAddress = EmailAddress
+    },
+    SET_PHOTO (state, photo) {
+      state.infos.photo = photo
     }
   },
   actions: {
@@ -35,11 +39,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         request({
           method: 'get',
-          url: 'https://outlook.office.com/api/v2.0/me/photo/$value'
-        })
-        request({
-          method: 'get',
-          url: 'https://outlook.office.com/api/v2.0/me'
+          url: 'https://graph.microsoft.com/v1.0/me'
         }).then(response => {
           commit('SET_INFO', response)
           resolve()

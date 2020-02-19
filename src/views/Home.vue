@@ -3,13 +3,10 @@
     <v-container fluid>
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12" sm="6" xs="12">
-          <v-avatar color="orange" size="128">
-            <img
-              alt
-              src="https://outlook.office.com/api/v2.0/me/photo/$value"
-            />
+          <v-avatar size="128">
+            <img ref="img" alt />
           </v-avatar>
-          <h1>欢迎使用，{{ infos.alias }}</h1>
+          <h1>欢迎使用，{{ infos.name }}</h1>
           <p>请选择你想调用的 API (暂时只有发送邮件)</p>
         </v-col>
       </v-row>
@@ -48,9 +45,13 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn text :disabled=!valid @click="sead">发送</v-btn>
+              <v-btn text :disabled="!valid" @click="sead">发送</v-btn>
             </v-card-actions>
           </v-card>
+          <br />
+          <p class="text-center">
+            <a :href="url" @click="logout">注销</a>
+          </p>
         </v-col>
       </v-row>
     </v-container>
@@ -61,11 +62,8 @@
 export default {
   name: 'Home',
   data: () => ({
-    url: 'https://outlook.office.com/api/v2.0/me/sendmail',
     valid: false,
-    rules: [
-      v => !!v || '这项是必须的'
-    ],
+    rules: [v => !!v || '这项是必须的'],
     emailRules: [
       v => !!v || '电子邮箱是必须的',
       v => /.+@.+\..+/.test(v) || '这不是电子邮箱'
@@ -77,16 +75,40 @@ export default {
     }
   }),
   computed: {
+    url () {
+      return (
+        'https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=' +
+        encodeURIComponent(process.env.VUE_APP_BASE_URL)
+      )
+    },
     infos () {
       return this.$store.state.infos
     }
   },
+  mounted () {
+    this.photo()
+  },
   methods: {
+    logout () {
+      this.$store.dispatch('removeToken')
+    },
+    async photo () {
+      await this.axios({
+        method: 'get',
+        url: 'https://graph.microsoft.com/v1.0/me/photo/$value',
+        responseType: 'blob'
+      }).then(response => {
+        const url = window.URL || window.webkitURL
+        const blobUrl = url.createObjectURL(response)
+        this.$refs.img.src = blobUrl
+      })
+    },
     sead () {
+      // this.valid = false
       return new Promise((resolve, reject) => {
         this.axios({
           method: 'POST',
-          url: 'https://outlook.office.com/api/v2.0/me/sendmail',
+          url: 'https://graph.microsoft.com/v1.0/me/sendMail',
           data: {
             Message: {
               Subject: this.form.subject,
