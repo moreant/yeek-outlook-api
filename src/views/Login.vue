@@ -3,7 +3,7 @@
     <v-container fluid>
       <v-row align="center" justify="center">
         <v-col class="text-center" cols="12" sm="6" xs="12">
-          <img alt src="/outlook.png" style="width:128px;height:128px" />
+          <img alt src="@/assets/outlook.png" style="width:128px;height:128px" />
           <h1>Yeek Outlook API</h1>
           <p>
             加入 Office 356 开发者 E5 订阅。获得 Office356 全家桶的使用权，以及
