@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'github'
+  publicPath: process.env.ENV === 'github'
     ? '/yeek-outlook-api/'
     : '/',
   transpileDependencies: [
