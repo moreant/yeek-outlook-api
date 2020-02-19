@@ -5,7 +5,6 @@ import { getToken } from '@/utils/token'
 router.beforeEach(async (to, from, next) => {
   document.title = 'Yeek Outlokk API'
 
-  console.log(to.path)
   if ((to.path.indexOf('access_token') === 1)) {
     const accessToken = /(?<=access_token=).+?(?=&)/.exec(to.path)
     await store.dispatch('setToken', accessToken[0])

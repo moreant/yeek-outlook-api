@@ -15,7 +15,7 @@ Vue.use(VueAxios, request)
 
 Vue.config.productionTip = false
 
-console.log(process.env.NODE_ENV)
+console.log(process.env.VUE_APP_ENV)
 
 new Vue({
   router,
